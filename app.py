@@ -79,6 +79,8 @@ def download_file_from_google_drive(url, filename):
     else:
         print(f"Failed to download file from {url}")
 
+# Example usage
+
 
 
 @app.route('/predict',methods=['POST'])
@@ -87,16 +89,16 @@ def index():
     if not os.path.exists(filename):
         google_drive_link = 'https://drive.google.com/file/d/1ZvKu1uXsda6QFsqjyxORzhJO4dGJwGWX/view?usp=sharing'
         download_file_from_google_drive(google_drive_link, filename)
-    error = None
+    conf,clss = None,None
     if request.method == 'POST':
         print([i for i in request.files])
         if 'picture' not in request.files:
             flash('No file part')
-            return redirect(request.url)
+            return jsonify({'conf': conf, 'clss': clss})
         file = request.files['picture']
         if file.filename == '':
             error = 'No selected file'
-            return redirect(url_for('index',error=error))
+            return jsonify({'conf': conf, 'clss': clss})
         
         model = load_model(base_model())
         user_img = request.files['picture']
@@ -108,7 +110,7 @@ def index():
         # print('yes that it')
 
         return jsonify({'conf': conf, 'clss': clss})
-    return error,error
+    return jsonify({'conf': conf, 'clss': clss})
 
 # @app.route('/validate')
 # def validate():
