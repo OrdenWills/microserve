@@ -2,14 +2,9 @@
 import numpy as np # linear algebra
 
 from keras.models import Sequential, Model
-from keras.models import Sequential
 from keras.layers import Conv2D, MaxPooling2D, Dense, Dropout, Input, Flatten, SeparableConv2D,BatchNormalization
-from keras.layers import GlobalMaxPooling2D
-# from keras.layers.normalization import BatchNormalization
-from keras.layers.merge import Concatenate
 from keras.models import Model
 import cv2
-from keras import backend as K
 from flask import Flask,render_template,redirect,url_for,request,flash
 import requests,os
 
