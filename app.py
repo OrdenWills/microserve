@@ -91,7 +91,7 @@ def index():
         download_file_from_google_drive(google_drive_link, filename)
     conf,clss = None,None
     if request.method == 'POST':
-        print([i for i in request.files])
+        print(request.json)
         if 'picture' not in request.files:
             error = 'No file part'
             return jsonify({'conf': conf, 'clss': error})
