@@ -1,0 +1,7 @@
+os
+Flask
+tensorflow
+keras
+opencv-python-headless
+requests
+numpy
