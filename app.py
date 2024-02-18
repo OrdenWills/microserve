@@ -91,21 +91,23 @@ def index():
         download_file_from_google_drive(google_drive_link, filename)
     conf,clss = None,None
     if request.method == 'POST':
-        # print([i for i in request.files])
+        print([i for i in request.files])
         # print(request.json)
-        # if 'picture' not in request.files:
-        #     error = 'No file part'
-        #     return jsonify({'conf': conf, 'clss': error})
-        # file = request.files['picture']
-        # if file.filename == '':
-        #     error = 'No selected file'
-        #     return jsonify({'conf': conf, 'clss': error})
+        if 'picture' not in request.files:
+            error = 'No file part'
+            return jsonify({'conf': conf, 'clss': error})
+        file = request.files['picture']
+        if file.filename == '':
+            error = 'No selected file'
+            return jsonify({'conf': conf, 'clss': error})
         
         model = load_model(base_model())
-        user_img = request.json['picture']
-        user_img.save('./static/images/my_img.jpeg')
+        user_img = request.files['picture']
+        user_img.save('./static/images/my_img.jpg')
 
-        pro_img = process_images('./static/images/my_img.jpeg')
+        pro_img = process_images('./static/images/my_img.jpg')
+        pro_img = process_images(user_img)
+        
         conf,clss = predict(model,pro_img)
         # print(conf,clss)
         # print('yes that it')
