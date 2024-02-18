@@ -93,12 +93,12 @@ def index():
     if request.method == 'POST':
         print([i for i in request.files])
         if 'picture' not in request.files:
-            flash('No file part')
-            return jsonify({'conf': conf, 'clss': clss})
+            error = 'No file part'
+            return jsonify({'conf': conf, 'clss': error})
         file = request.files['picture']
         if file.filename == '':
             error = 'No selected file'
-            return jsonify({'conf': conf, 'clss': clss})
+            return jsonify({'conf': conf, 'clss': error})
         
         model = load_model(base_model())
         user_img = request.files['picture']
