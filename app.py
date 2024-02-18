@@ -5,7 +5,7 @@ from keras.models import Sequential, Model
 from keras.layers import Conv2D, MaxPooling2D, Dense, Dropout, Input, Flatten, SeparableConv2D,BatchNormalization
 from keras.models import Model
 import cv2
-from flask import Flask,render_template,redirect,url_for,request,flash
+from flask import Flask,render_template,redirect,url_for,request,flash,jsonify
 import requests,os
 
 app = Flask(__name__)
@@ -79,8 +79,6 @@ def download_file_from_google_drive(url, filename):
     else:
         print(f"Failed to download file from {url}")
 
-# Example usage
-
 
 
 @app.route('/predict',methods=['POST'])
@@ -108,7 +106,8 @@ def index():
         conf,clss = predict(model,pro_img)
         # print(conf,clss)
         # print('yes that it')
-        return conf,clss
+
+        return jsonify({'conf': conf, 'clss': clss})
     return error,error
 
 # @app.route('/validate')
